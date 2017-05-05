@@ -1,3 +1,7 @@
+/**
+ * Required Variables.
+ */
+
 variable "instance_list_public_subnet_id" {
   type = "list"
 }
@@ -21,6 +25,10 @@ variable "project" {
 variable "environment" {
   description = "Name of environment (i.e. dev, test, prod)"
 }
+
+/**
+ * Options.
+ */
 
 variable "cluster_size" {
   description = "Size of cluster"

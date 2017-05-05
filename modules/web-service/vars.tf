@@ -2,10 +2,6 @@
  * Required Variables.
  */
 
-//variable "aws" {
-//  type = "map"
-//}
-
 variable "project" {
   description = "Name of project"
 }
@@ -55,11 +51,6 @@ variable "external_zone_id" {
  * Options.
  */
 
-variable "healthcheck" {
-  description = "Path to a healthcheck endpoint"
-  default     = "/"
-}
-
 variable "command" {
   description = "The raw json of the task command"
   default     = "[]"
@@ -93,4 +84,29 @@ variable "deployment_minimum_healthy_percent" {
 variable "deployment_maximum_percent" {
   description = "upper limit (% of desired_count) of # of running tasks during a deployment"
   default     = 200
+}
+
+variable "health_check_healthy_threshold" {
+  description = "The number of consecutive health checks successes required before considering an unhealthy target healthy."
+  default     = "5"
+}
+
+variable "health_check_unhealthy_threshold" {
+  description = "The number of consecutive health check failures required before considering the target unhealthy."
+  default     = "2"
+}
+
+variable "health_check_timeout" {
+  description = "The amount of time, in seconds, during which no response means a failed health check."
+  default     = "5"
+}
+
+variable "health_check_interval" {
+  description = "The approximate amount of time, in seconds, between health checks of an individual target. Minimum value 5 seconds, Maximum value 300 seconds."
+  default     = "30"
+}
+
+variable "health_check_path" {
+  description = "The destination for the health check request."
+  default     = "/health"
 }

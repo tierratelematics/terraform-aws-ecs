@@ -39,6 +39,13 @@ module "alb" {
   security_vpc_id     = "${var.security_vpc_id}"
   subnet_ids          = "${var.subnet_ids}"
   ssl_certificate_arn = "${var.ssl_certificate_arn}"
+
+  health_check_healthy_threshold   = "${var.health_check_healthy_threshold}"
+  health_check_unhealthy_threshold = "${var.health_check_unhealthy_threshold}"
+  health_check_unhealthy_threshold = "${var.health_check_unhealthy_threshold}"
+  health_check_timeout             = "${var.health_check_timeout}"
+  health_check_interval            = "${var.health_check_interval}"
+  health_check_path                = "${var.health_check_path}"
 }
 
 resource "aws_route53_record" "service-alias" {
