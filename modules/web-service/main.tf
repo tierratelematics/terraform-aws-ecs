@@ -4,7 +4,7 @@
 
 resource "aws_ecs_service" "main" {
   cluster                            = "${var.cluster}"
-  name                               = "${var.task_name}"
+  name                               = "${var.task_name}-${var.environment}"
   task_definition                    = "${var.task_arn}"
   desired_count                      = "${var.desired_count}"
   iam_role                           = "${var.iam_role}"
