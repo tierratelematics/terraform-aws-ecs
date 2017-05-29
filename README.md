@@ -9,19 +9,50 @@ named `main.tf`:
 
 ```hcl
 module "ecs-cluster" {
-  source = "git::https://github.com/tierratelematics/terraform-aws-ecs.git//modules/ecs-cluster?ref=0.1.0"
+  source = "git::https://github.com/tierratelematics/terraform-aws-ecs.git//modules/ecs-cluster?ref=0.3.0"
 
 
-  environment = "${var.environment}"
   project     = "${var.project}"
+  environment = "${var.environment}"
 
   cluster_name                   = "main"
-  instance_list_available_zone   = ["${var.aws["availability_zone"]}"]
+  instance_list_available_zone   = ["${var.aws["availability_zone_1"]}", "${var.aws["availability_zone_2"]}"]
   instance_list_public_subnet_id = ["${var.aws["public_1_subnet_id"]}", "${var.aws["public_2_subnet_id"]}"]
   instance                       = "${var.ecs_instance}"
   security_vpc_id                = "${var.aws["vpc_id"]}"
 }
 ```
+
+The `aws` module parameter contains the AWS related information.
+ 
+ ```hcl
+aws = {
+  region              = "eu-west-1"
+
+  availability_zone_1 = "eu-west-1a"
+  availability_zone_2 = "eu-west-1c"
+
+  vpc_id              = "vpc-xxxxxxxx"
+
+  public_1_subnet_id  = "subnet-xxxxxxxx"
+  public_2_subnet_id  = "subnet-xxxxxxxx"
+  
+  ...
+}
+```
+
+The `instance` module parameter should provide the required information to create a EC2 instance to run the containers. See the following snipplet from a `terraform.tfvars` file: 
+
+```hcl
+ecs_instance = {
+  key_name = "my-key-pair-name"
+  type = "t2.large"
+  ami = "latest"
+  profile = "my-server-profile"
+}
+```
+
+
 
 ## License
 
