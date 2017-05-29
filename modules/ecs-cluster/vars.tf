@@ -2,12 +2,12 @@
  * Required Variables.
  */
 
-variable "instance_list_public_subnet_id" {
-  type = "list"
+variable "project" {
+  description = "Name of project"
 }
 
-variable "instance_list_available_zone" {
-  type = "list"
+variable "environment" {
+  description = "Name of environment (i.e. dev, test, prod)"
 }
 
 variable "cluster_name" {}
@@ -18,12 +18,12 @@ variable "instance" {
   type = "map"
 }
 
-variable "project" {
-  description = "Name of project"
+variable "instance_list_public_subnet_id" {
+  type = "list"
 }
 
-variable "environment" {
-  description = "Name of environment (i.e. dev, test, prod)"
+variable "instance_list_available_zone" {
+  type = "list"
 }
 
 /**
