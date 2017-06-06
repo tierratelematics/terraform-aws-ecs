@@ -46,9 +46,9 @@ The `instance` module parameter should provide the required information to creat
 ```hcl
 ecs_instance = {
   key_name = "my-key-pair-name"
-  type = "t2.large"
-  ami = "latest"
-  profile = "my-server-profile"
+  type     = "t2.large"
+  ami      = "latest"
+  profile  = "my-server-profile"
 }
 ```
 
