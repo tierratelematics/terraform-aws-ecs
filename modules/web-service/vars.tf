@@ -23,10 +23,6 @@ variable "subnet_ids" {
   description = "List of subnet IDs that will be passed to the ALB module"
 }
 
-variable "security_groups" {
-  description = "Comma separated list of security group IDs that will be passed to the ALB module"
-}
-
 variable "cluster" {
   description = "The cluster name or ARN"
 }
