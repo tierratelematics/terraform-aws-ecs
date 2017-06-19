@@ -5,16 +5,17 @@ This repository is a set of Terraform modules for configuring infrastructure wit
 ## Quickstart
 
 The easiest way to get the modules and running is by creating a Terraform definition for it, copy this snippet in a file
-named `main.tf`:
+named `main.tf`.
+
+### Simple
 
 ```hcl
 module "ecs-cluster" {
-  source = "git::https://github.com/tierratelematics/terraform-aws-ecs.git//modules/ecs-cluster?ref=0.3.0"
-
-
+  source = "git::https://github.com/tierratelematics/terraform-aws-ecs.git//modules/ecs-cluster?ref=0.4.0"
+ 
   project     = "${var.project}"
   environment = "${var.environment}"
-
+ 
   cluster_name                   = "main"
   instance_list_available_zone   = ["${var.aws["availability_zone_1"]}", "${var.aws["availability_zone_2"]}"]
   instance_list_public_subnet_id = ["${var.aws["public_1_subnet_id"]}", "${var.aws["public_2_subnet_id"]}"]
@@ -22,6 +23,27 @@ module "ecs-cluster" {
   security_vpc_id                = "${var.aws["vpc_id"]}"
 }
 ```
+
+### Internal DNS record (optional)
+
+You can optionally register an internal DNS name on a Private Hosted Zone.
+
+```hcl
+module "ecs-cluster" {
+  source = "git::https://github.com/tierratelematics/terraform-aws-ecs.git//modules/ecs-cluster?ref=0.4.0"
+ 
+  [...]
+  
+  internal_dns_enabled = "true"
+  internal_dns_name    = "dev.app.local"
+  internal_zone_id     = "xxxxxx"  
+  
+}
+```
+
+With `internal_dns_enabled` the module will create an `A` record for each private IP address in the EC2 instance .
+
+### Parameters
 
 The `aws` module parameter contains the AWS related information.
  
@@ -46,7 +68,7 @@ The `instance` module parameter should provide the required information to creat
 ```hcl
 ecs_instance = {
   key_name = "my-key-pair-name"
-  type     = "t2.large"
+  type     = "t2.small"
   ami      = "latest"
   profile  = "my-server-profile"
 }
