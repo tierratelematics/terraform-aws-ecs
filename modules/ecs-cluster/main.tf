@@ -7,8 +7,8 @@ resource "aws_ecs_cluster" "ecs_cluster" {
 }
 
 resource "aws_security_group" "ecs_cluster_group" {
-  name        = "${var.project}-${var.environment}-cluster-security-group"
-  description = "${var.project}-${var.environment}-cluster-security-group"
+  name        = "${var.project}-${var.environment}-${var.cluster_name}-cluster-sg"
+  description = "${var.project}-${var.environment}-${var.cluster_name}-cluster-sg"
   vpc_id      = "${var.security_vpc_id}"
 
   ingress {
@@ -67,8 +67,18 @@ resource "aws_instance" "ecs_instance" {
   associate_public_ip_address = "${var.associate_public_ip_address}"
 
   tags {
-    Name        = "${format("%s-%s-ecs-cluster-node-%d", var.project, var.environment, count.index + 1)}"
+    Name        = "${format("%s-%s-ecs-%s-cluster-node-%d", var.project, var.environment, var.cluster_name, count.index + 1)}"
     Project     = "${var.project}"
     Environment = "${var.environment}"
   }
+}
+
+resource "aws_route53_record" "internal_dns_record" {
+  count = "${var.internal_dns_enabled == "true" ? var.cluster_size : 0}"
+
+  zone_id = "${var.internal_zone_id}"
+  name    = "${format("%s-%s-ecs-%s-cluster-node-%d.%s", var.project, var.environment, var.cluster_name, count.index + 1, var.internal_dns_name)}"
+  type    = "A"
+  ttl     = "${var.internal_dns_ttl}"
+  records = ["${element(aws_instance.ecs_instance.*.private_ip, count.index)}"]
 }
