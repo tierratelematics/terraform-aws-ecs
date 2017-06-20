@@ -55,6 +55,11 @@ variable "internal_dns_name" {
   default     = ""
 }
 
+variable "internal_zone_id" {
+  description = "The zone ID to create the record in"
+  default     = ""
+}
+
 variable "internal_dns_ttl" {
   description = "The TTL of the record"
   default     = "300"
