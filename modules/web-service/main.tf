@@ -48,14 +48,9 @@ module "alb" {
   health_check_path                = "${var.health_check_path}"
 }
 
-data "aws_route53_zone" "external-dns" {
-  name = "${var.external_dns_name}"
-  private_zone = false
-}
-
 resource "aws_route53_record" "service-alias" {
-  zone_id = "${data.aws_route53_zone.external-dns.zone_id}"
-  name    = "lb-${var.task_name}.${var.environment}.${data.aws_route53_zone.external-dns.name}"
+  zone_id = "${var.external_zone_id}"
+  name    = "lb-${var.task_name}.${var.environment}.${var.external_dns_name}"
   type    = "A"
 
   weighted_routing_policy {
