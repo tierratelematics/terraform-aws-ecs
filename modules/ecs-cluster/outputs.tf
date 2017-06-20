@@ -13,3 +13,7 @@ output "ecs_cluster_instance_fqdns" {
 output "ecs_cluster_instance_private_ips" {
   value = "${aws_instance.ecs_instance.*.private_ip}"
 }
+
+output "ecs_cluster_instance_private_dns" {
+  value = "${aws_instance.ecs_instance.*.network_interface.PrivateDnsName}"
+}
