@@ -35,6 +35,7 @@ module "ecs-cluster" {
   [...]
   
   internal_dns_name = "dev.app.local"
+  internal_zone_id  = "Zxxxxxxx"
   
 }
 ```
