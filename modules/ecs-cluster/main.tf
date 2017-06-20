@@ -73,11 +73,18 @@ resource "aws_instance" "ecs_instance" {
   }
 }
 
-resource "aws_route53_record" "internal_dns_record" {
-  count = "${var.internal_dns_enabled == "true" ? var.cluster_size : 0}"
+data "aws_route53_zone" "internal_zone" {
+  count = "${var.internal_dns_name == "" ? 0 : 1}"
 
-  zone_id = "${var.internal_zone_id}"
-  name    = "${format("%s-%s-ecs-%s-cluster-node-%d.%s", var.project, var.environment, var.cluster_name, count.index + 1, var.internal_dns_name)}"
+  name = "${var.internal_dns_name}"
+  private_zone = true
+}
+
+resource "aws_route53_record" "internal_dns_record" {
+  count = "${var.internal_dns_name == "" ? 0 : var.cluster_size}"
+
+  zone_id = "${data.aws_route53_zone.internal_zone.zone_id}"
+  name    = "${format("ecs-%s-cluster-node-%d.%s", var.cluster_name, count.index + 1, data.aws_route53_zone.internal_zone.name)}"
   type    = "A"
   ttl     = "${var.internal_dns_ttl}"
   records = ["${element(aws_instance.ecs_instance.*.private_ip, count.index)}"]

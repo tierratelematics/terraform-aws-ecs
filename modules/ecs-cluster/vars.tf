@@ -50,21 +50,12 @@ variable "associate_public_ip_address" {
   default     = true
 }
 
-variable "internal_dns_enabled" {
-  default = "false"
-}
-
 variable "internal_dns_name" {
-  description = "The subdomain under which the EC2 is exposed internally"
+  description = "The subdomain under which the EC2 is exposed internally."
   default     = ""
 }
 
 variable "internal_dns_ttl" {
   description = "The TTL of the record"
   default     = "300"
-}
-
-variable "internal_zone_id" {
-  description = "The zone ID to create the record in"
-  default     = ""
 }
