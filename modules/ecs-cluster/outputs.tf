@@ -15,5 +15,5 @@ output "ecs_cluster_instance_private_ips" {
 }
 
 output "ecs_cluster_instance_private_dns" {
-  value = "${aws_instance.ecs_instance.*.network_interface.PrivateDnsName}"
+  value = "${aws_instance.ecs_instance.*.private_dns}"
 }
