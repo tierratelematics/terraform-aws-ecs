@@ -67,7 +67,7 @@ resource "aws_instance" "ecs_instance" {
   associate_public_ip_address = "${var.associate_public_ip_address}"
 
   tags {
-    Name        = "${format("ecs-%s-cluster-node-%d.%s", var.cluster_name, count.index + 1, var.internal_dns_name)}"
+    Name        = "${format("ecs-%s-cluster-node-%d", var.cluster_name, count.index + 1)}"
     Project     = "${var.project}"
     Environment = "${var.environment}"
   }
@@ -77,7 +77,7 @@ resource "aws_route53_record" "internal_dns_record" {
   count = "${var.internal_dns_name == "" ? 0 : var.cluster_size}"
 
   zone_id = "${var.internal_zone_id}"
-  name    = "${format("ecs-%s-%d", var.cluster_name, count.index + 1)}"
+  name    = "${format("ecs-%s-%d.%s", var.cluster_name, count.index + 1, var.internal_dns_name)}"
 
   type    = "A"
   ttl     = "${var.internal_dns_ttl}"
