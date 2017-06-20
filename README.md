@@ -34,14 +34,13 @@ module "ecs-cluster" {
  
   [...]
   
-  internal_dns_enabled = "true"
-  internal_dns_name    = "dev.app.local"
-  internal_zone_id     = "xxxxxx"  
+  internal_dns_name = "dev.app.local"
   
 }
 ```
 
-With `internal_dns_enabled` the module will create an `A` record for each private IP address in the EC2 instance .
+If you specify an `internal_dns_name` the module will create an `A` record for each private IP address in the EC2 
+instance. Check the module source for the current naming convention for the DNS record. 
 
 ### Parameters
 
@@ -63,7 +62,8 @@ aws = {
 }
 ```
 
-The `instance` module parameter should provide the required information to create a EC2 instance to run the containers. See the following snipplet from a `terraform.tfvars` file: 
+The `instance` module parameter should provide the required information to create a EC2 instance to run the containers. 
+See the following snipplet from a `terraform.tfvars` file: 
 
 ```hcl
 ecs_instance = {
