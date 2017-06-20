@@ -39,9 +39,9 @@ variable "external_dns_name" {
   description = "The subdomain under which the ALB is exposed externally"
 }
 
-variable "external_zone_id" {
-  description = "The zone ID to create the record in"
-}
+//variable "external_zone_id" {
+//  description = "The zone ID to create the record in"
+//}
 
 /**
  * Options.
