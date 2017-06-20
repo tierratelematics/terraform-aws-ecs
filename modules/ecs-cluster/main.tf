@@ -67,7 +67,7 @@ resource "aws_instance" "ecs_instance" {
   associate_public_ip_address = "${var.associate_public_ip_address}"
 
   tags {
-    Name        = "${format("%s-%s-ecs-%s-cluster-node-%d", var.project, var.environment, var.cluster_name, count.index + 1)}"
+    Name        = "${format("ecs-%s-%d", var.cluster_name, count.index + 1)}"
     Project     = "${var.project}"
     Environment = "${var.environment}"
   }
