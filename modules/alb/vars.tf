@@ -71,3 +71,8 @@ variable "health_check_path" {
   description = "The destination for the health check request."
   default     = "/health"
 }
+
+variable "health_port" {
+  description = "The port for the health check request."
+  default     = "80"
+}
