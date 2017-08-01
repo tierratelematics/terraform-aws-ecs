@@ -46,7 +46,7 @@ module "alb" {
   health_check_timeout             = "${var.health_check_timeout}"
   health_check_interval            = "${var.health_check_interval}"
   health_check_path                = "${var.health_check_path}"
-  health_port                      = "${var.health_port}"
+  health_check_port                = "${var.health_check_port}"
 }
 
 resource "aws_route53_record" "service-alias" {
