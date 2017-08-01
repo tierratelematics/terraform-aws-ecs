@@ -42,7 +42,7 @@ resource "aws_alb_target_group" "alb_target_group" {
     timeout             = "${var.health_check_timeout}"
     interval            = "${var.health_check_interval}"
     path                = "${var.health_check_path}"
-    port                = "${var.health_port}"
+    port                = "${var.health_check_port}"
   }
 
   tags {

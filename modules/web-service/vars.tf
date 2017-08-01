@@ -107,6 +107,6 @@ variable "health_check_path" {
   default     = "/health"
 }
 
-variable "health_port" {
+variable "health_check_port" {
   description = "The port for the health check request."
 }
