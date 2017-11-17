@@ -76,3 +76,8 @@ variable "health_check_port" {
   description = "The port for the health check request."
   default     = "80"
 }
+
+variable "health_matcher" {
+  description = "The matche of HTTP status codes."
+  default     = "200-299"
+}

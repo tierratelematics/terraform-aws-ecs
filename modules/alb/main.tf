@@ -43,6 +43,7 @@ resource "aws_alb_target_group" "alb_target_group" {
     interval            = "${var.health_check_interval}"
     path                = "${var.health_check_path}"
     port                = "${var.health_check_port}"
+    matcher             = "${var.health_matcher}"
   }
 
   tags {
